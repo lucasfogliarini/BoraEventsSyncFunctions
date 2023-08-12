@@ -18,7 +18,7 @@ namespace BoraEventsSyncFunctions
 											Connection = "AzureServiceBusConnectionString")]
 											Event eventsCreated)
 		{
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 			sb.AppendLine("Event Details:");
 			sb.AppendLine($"Title: {eventsCreated.Title}");
 			sb.AppendLine($"DateTime: {eventsCreated.DateTime}");
@@ -26,7 +26,7 @@ namespace BoraEventsSyncFunctions
 			sb.AppendLine($"ImageUrl: {eventsCreated.ImageUrl}");
 			sb.AppendLine($"EventLink: {eventsCreated.EventLink}");
 
-			_logger.LogInformation(sb.ToString());
+			_logger.LogWarning(sb.ToString());
 		}
 	}
 }

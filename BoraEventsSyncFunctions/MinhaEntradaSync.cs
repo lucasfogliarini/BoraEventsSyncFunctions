@@ -20,9 +20,6 @@ namespace BoraEventsSyncFunctions
 		[ServiceBusOutput("%AzureServiceBusEventCreatedQueue%", Connection = "AzureServiceBusConnectionString")]
 		public async Task<IEnumerable<Event>> Run([TimerTrigger("%MinhaEntradaCron%")] TimerInfo timer)
         {
-            _logger.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
-            _logger.LogInformation($"Next timer schedule at: {timer.ScheduleStatus?.Next}");			
-
 			DateTime startDate = DateTime.Today;
 			DateTime endDate = DateTime.Today.AddDays(7);
 
