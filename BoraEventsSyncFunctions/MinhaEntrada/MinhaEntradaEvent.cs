@@ -1,4 +1,4 @@
-﻿namespace MinhaEntrada
+﻿namespace BoraEventsSyncFunctions.MinhaEntrada
 {
 	public class MinhaEntradaEvent
 	{

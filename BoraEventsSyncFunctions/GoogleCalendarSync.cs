@@ -1,32 +1,27 @@
+using BoraEventsSyncFunctions.GoogleCalendar;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
-using System.Text;
 
 namespace BoraEventsSyncFunctions
 {
 	public class GoogleCalendarSync
 	{
-		private readonly ILogger _logger;
+		readonly ILogger _logger;
+		readonly GoogleCalendarService _googleCalendarService;
 
-		public GoogleCalendarSync(ILoggerFactory loggerFactory)
+		public GoogleCalendarSync(GoogleCalendarService googleCalendarService, ILoggerFactory loggerFactory)
 		{
 			_logger = loggerFactory.CreateLogger<GoogleCalendarSync>();
+			_googleCalendarService = googleCalendarService;
 		}
 
 		[Function(nameof(GoogleCalendarSync))]
-		public void Run([ServiceBusTrigger("%AzureServiceBusEventCreatedQueue%",
+		public async Task Run([ServiceBusTrigger("%AzureServiceBusEventCreatedQueue%",
 											Connection = "AzureServiceBusConnectionString")]
-											Event eventsCreated)
+											EventCreated eventCreated)
 		{
-			StringBuilder sb = new();
-			sb.AppendLine("Event Details:");
-			sb.AppendLine($"Title: {eventsCreated.Title}");
-			sb.AppendLine($"DateTime: {eventsCreated.DateTime}");
-			sb.AppendLine($"Location: {eventsCreated.Location}");
-			sb.AppendLine($"ImageUrl: {eventsCreated.ImageUrl}");
-			sb.AppendLine($"EventLink: {eventsCreated.EventLink}");
-
-			_logger.LogWarning(sb.ToString());
+			_logger.LogWarning("Sincronizando evento com o Google Calendar.");
+			//await _googleCalendarService.CreateAsync(eventCreated);
 		}
 	}
 }

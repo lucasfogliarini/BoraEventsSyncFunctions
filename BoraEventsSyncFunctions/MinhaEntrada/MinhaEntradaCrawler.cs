@@ -2,7 +2,7 @@
 using AngleSharp;
 using System.Globalization;
 
-namespace MinhaEntrada
+namespace BoraEventsSyncFunctions.MinhaEntrada
 {
 	public class MinhaEntradaCrawler
 	{
