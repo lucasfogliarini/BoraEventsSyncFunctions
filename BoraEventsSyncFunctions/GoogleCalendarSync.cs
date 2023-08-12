@@ -1,4 +1,3 @@
-using BoraEventsSyncFunctions.GoogleCalendar;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 
@@ -7,12 +6,11 @@ namespace BoraEventsSyncFunctions
 	public class GoogleCalendarSync
 	{
 		readonly ILogger _logger;
-		readonly GoogleCalendarService _googleCalendarService;
+		readonly BoraHttpClient _boraHttpClient = new();
 
-		public GoogleCalendarSync(GoogleCalendarService googleCalendarService, ILoggerFactory loggerFactory)
+		public GoogleCalendarSync(ILoggerFactory loggerFactory)
 		{
 			_logger = loggerFactory.CreateLogger<GoogleCalendarSync>();
-			_googleCalendarService = googleCalendarService;
 		}
 
 		[Function(nameof(GoogleCalendarSync))]
@@ -21,7 +19,8 @@ namespace BoraEventsSyncFunctions
 											EventCreated eventCreated)
 		{
 			_logger.LogWarning("Sincronizando evento com o Google Calendar.");
-			//await _googleCalendarService.CreateAsync(eventCreated);
+			eventCreated.Description = eventCreated.EventLink;
+			await _boraHttpClient.PostEventAsync(eventCreated);
 		}
 	}
 }

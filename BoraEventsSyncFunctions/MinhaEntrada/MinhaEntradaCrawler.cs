@@ -54,7 +54,8 @@ namespace BoraEventsSyncFunctions.MinhaEntrada
 				var location = eventNode.QuerySelector(".zmdi-pin").Parent.TextContent.Trim();
 				var imageUrl = eventNode.QuerySelector("img")?.GetAttribute("src");
 				var eventLink = eventNode.QuerySelector("a.color-font-black")?.GetAttribute("href");
-				DateTime.TryParseExact(dateTimeString, "dd/MM/yyyy - HH:mm'h'", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dateTime);
+				eventLink = $"{MINHAENTRADA_DOMAIN}{eventLink}";
+				DateTime.TryParseExact(dateTimeString, "dd/MM/yyyy - HH:mm'h'", CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal, out DateTime dateTime);
 
 				var eventData = new MinhaEntradaEvent
 				{

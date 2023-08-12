@@ -24,13 +24,15 @@ namespace BoraEventsSyncFunctions
 			DateTime endDate = DateTime.Today.AddDays(7);
 
 			var events = await _minhaEntradaCrawler.CrawlEventsAsync(startDate, endDate);
+
 			return events.Select(e => new EventCreated
 			{
 				Start = e.DateTime,
 				Title = e.Title,
 				EventLink = e.EventLink,
 				ImageUrl = e.ImageUrl,
-				Location = e.Location
+				Location = e.Location,
+				Public = true
 			});
 		}
     }
