@@ -2,7 +2,7 @@ using BoraEventsSyncFunctions.MinhaEntrada;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 
-namespace BoraEventsSyncFunctions
+namespace BoraEventsSyncFunctions.EventSync
 {
 	public class MinhaEntradaSync
     {
@@ -18,8 +18,10 @@ namespace BoraEventsSyncFunctions
 
         [Function(nameof(MinhaEntradaSync))]
 		[ServiceBusOutput("%AzureServiceBusEventCreatedQueue%", Connection = "AzureServiceBusConnectionString")]
-		public async Task<IEnumerable<EventCreated>> Run([TimerTrigger("%MinhaEntradaCron%")] TimerInfo timer)
+		public async Task<IEnumerable<EventCreated>> RunAsync([TimerTrigger("%CrawlerCron%", RunOnStartup = false)] TimerInfo timer)
         {
+			_logger.LogWarning("Criando eventos do Minha Entrada.");
+
 			DateTime startDate = DateTime.Today;
 			DateTime endDate = DateTime.Today.AddDays(7);
 
