@@ -9,8 +9,8 @@
 		public string? Location { get; set; }
 		public string? ImageUrl { get; set; }
 		public string? EventLink { get; set; }
-		public bool? Public { get; set; }
 		public GoogleCalendarColor? Color { get; set; }
+		public bool? Public { get; set; } = true;
 		public bool AddConference { get; set; } = true;
 		/// <summary>
 		/// Bora Calendar

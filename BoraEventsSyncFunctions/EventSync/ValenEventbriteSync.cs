@@ -1,31 +1,27 @@
-using BoraEventsSyncFunctions.Eventbrite;
+using BoraEventsSyncFunctions.Crawlers;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 
 namespace BoraEventsSyncFunctions.EventSync
 {
-    public class EventbriteSync
+	public class ValenEventbriteSync : EventSync
     {
-        private readonly ILogger _logger;
         const string ORGANIZER = "valen-bar-24177627927";
-        readonly EventbriteCrawler _eventbriteCrawler;
 
-        public EventbriteSync(ILoggerFactory loggerFactory)
+        public ValenEventbriteSync(ILoggerFactory loggerFactory) : base(new EventbriteCrawler(ORGANIZER))
         {
-            _logger = loggerFactory.CreateLogger<EventbriteSync>();
-            _eventbriteCrawler = new EventbriteCrawler(ORGANIZER);
+            _logger = loggerFactory.CreateLogger<ValenEventbriteSync>();
         }
 
-        [Function(nameof(EventbriteSync))]
+        [Function(nameof(ValenEventbriteSync))]
         [ServiceBusOutput("%AzureServiceBusEventCreatedQueue%", Connection = "AzureServiceBusConnectionString")]
-        public async Task<IEnumerable<EventCreated>> RunAsync([TimerTrigger("%CrawlerCron%", RunOnStartup = false)] TimerInfo timer)
+        public override async Task<IEnumerable<EventCreated>> RunAsync([TimerTrigger("%CrawlerCron%", RunOnStartup = false)] TimerInfo timer)
         {
-			_logger.LogWarning("Criando eventos do Eventbrite.");
-
 			DateTime startDate = DateTime.Today;
 			DateTime endDate = DateTime.Today.AddDays(7);
+            InitLog(startDate, endDate);
 
-			var events = await _eventbriteCrawler.CrawlEventsAsync();
+			var events = await _boraCrawler.CrawlEventsAsync();
 
             return events
                 .Where(e => e.DateTime >= startDate && e.DateTime <= endDate)
@@ -35,8 +31,7 @@ namespace BoraEventsSyncFunctions.EventSync
                     Title = e.Title,
                     EventLink = e.EventLink,
                     Description = e.Price,
-                    Location = e.Location,
-                    Public = true
+                    Location = e.Location
                 });
         }
     }
