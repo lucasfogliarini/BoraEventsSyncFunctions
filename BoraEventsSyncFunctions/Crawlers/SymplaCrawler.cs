@@ -12,7 +12,7 @@ namespace BoraEventsSyncFunctions.Crawlers
         /// <param name="eventsQuery">https://www.sympla.com.br/eventos/{eventsQuery}</param>
         public SymplaCrawler(string eventsQuery)
         {
-            EventsSchedule = $"{SYMPLA_DOMAIN}/eventos/{eventsQuery}";
+            EventsSchedule = $"{SYMPLA_DOMAIN}eventos/{eventsQuery}";
         }
 
         protected override List<CrawledEvent> ExtractEvents(IDocument document)

@@ -15,7 +15,7 @@ namespace BoraEventsSyncFunctions.EventSync
 
         [Function(nameof(StandUpSymplaSync))]
 		[ServiceBusOutput("%AzureServiceBusEventCreatedQueue%", Connection = "AzureServiceBusConnectionString")]
-		public override async Task<IEnumerable<EventCreated>> RunAsync([TimerTrigger("%CrawlerCron%", RunOnStartup = true)] TimerInfo timer)
+		public override async Task<IEnumerable<EventCreated>> RunAsync([TimerTrigger("%CrawlerCron%", RunOnStartup = false)] TimerInfo timer)
         {
 			DateTime startDate = DateTime.Today;
 			DateTime endDate = DateTime.Today.AddDays(7);

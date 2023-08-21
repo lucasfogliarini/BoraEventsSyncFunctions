@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33502.453
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoraEventsSyncFunctions", "BoraEventsSyncFunctions\BoraEventsSyncFunctions.csproj", "{0D3303F3-DD2A-4690-9BC7-F21BEF02F642}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoraEventsSyncFunctions", "BoraEventsSyncFunctions\BoraEventsSyncFunctions.csproj", "{0D3303F3-DD2A-4690-9BC7-F21BEF02F642}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bora.GoogleCalendar", "Bora.GoogleCalendar\Bora.GoogleCalendar.csproj", "{FE072BBC-14D1-4FF3-8267-8FF09DCE06F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{0D3303F3-DD2A-4690-9BC7-F21BEF02F642}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D3303F3-DD2A-4690-9BC7-F21BEF02F642}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D3303F3-DD2A-4690-9BC7-F21BEF02F642}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE072BBC-14D1-4FF3-8267-8FF09DCE06F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE072BBC-14D1-4FF3-8267-8FF09DCE06F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE072BBC-14D1-4FF3-8267-8FF09DCE06F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE072BBC-14D1-4FF3-8267-8FF09DCE06F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

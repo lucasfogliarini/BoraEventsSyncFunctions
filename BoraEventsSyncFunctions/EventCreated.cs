@@ -1,6 +1,8 @@
-﻿namespace BoraEventsSyncFunctions
+﻿using Bora.GoogleCalendar;
+
+namespace BoraEventsSyncFunctions
 {
-	public class EventCreated
+	public class EventCreated : IEventInput
 	{
 		public string? Title { get; set; }
 		public string? Description { get; set; }
@@ -18,19 +20,4 @@
 		/// </summary>
 		public string CalendarId { get; set; } = "2c9eb4a1ad2081d9fb32aceea89b099d590037dbf1d38da1b550d34bcaae9ded@group.calendar.google.com";
     }
-
-	public enum GoogleCalendarColor
-	{
-		Cinza = 1,
-		Vermelho = 2,
-		Laranja = 3,
-		Amarelo = 4,
-		Verde = 5,
-		Turquesa = 6,
-		Azul = 7,
-		Roxo = 8,
-		Rosa = 9,
-		Borgonha = 10,
-		VerdeEscuro = 11
-	}
 }
