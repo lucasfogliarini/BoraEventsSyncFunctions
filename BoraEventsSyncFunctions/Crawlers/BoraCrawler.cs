@@ -12,7 +12,7 @@ namespace BoraEventsSyncFunctions.Crawlers
 		{
 			var document = await GetHtmlDocumentAsync();
 			IEnumerable<CrawledEvent> events = ExtractEvents(document);
-			return events;
+			return events.OrderBy(e => e.DateTime);
 		}
 
 		protected abstract List<CrawledEvent> ExtractEvents(IDocument document);
