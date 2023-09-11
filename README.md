@@ -1,4 +1,4 @@
-﻿# Funções de Extração de Eventos
+# Bora Sincronizador de Eventos
 
 Este repositório contém uma coleção de funções do [Azure Functions](https://azure.microsoft.com/pt-br/products/functions) desenvolvidas em C# que têm como objetivo extrair informações sobre eventos de diferentes sites na internet e armazená-las em uma fila do [Azure Service Bus](https://azure.microsoft.com/pt-br/products/service-bus/). Cada função é acionada por um Timer Trigger e é configurada para rodar de acordo com uma expressão cron específica.  
 A função `GoogleCalendarSync` é acionada automaticamente sempre que uma mensagem é adicionada à fila extraindo informações do evento criado a partir da mensagem, como título, data de início e link do evento.
