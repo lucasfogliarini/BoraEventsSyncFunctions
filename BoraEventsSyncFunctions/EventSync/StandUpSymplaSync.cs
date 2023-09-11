@@ -6,9 +6,9 @@ namespace BoraEventsSyncFunctions.EventSync
 {
     public class StandUpSymplaSync : EventSync
 	{
-        const string EVENT_QUERY = "porto-alegre-rs/stand-up-comedy";
+        const string EVENTS_QUERY = "porto-alegre-rs/stand-up-comedy";
 
-		public StandUpSymplaSync(ILoggerFactory loggerFactory) : base(new SymplaCrawler(EVENT_QUERY))
+		public StandUpSymplaSync(ILoggerFactory loggerFactory) : base(new SymplaCrawler(EVENTS_QUERY))
         {
             _logger = loggerFactory.CreateLogger<StandUpSymplaSync>();
 		}

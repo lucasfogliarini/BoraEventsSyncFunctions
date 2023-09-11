@@ -4,25 +4,25 @@ using Microsoft.Extensions.Logging;
 
 namespace BoraEventsSyncFunctions.EventSync
 {
-    public class PoaComedyClubSync : EventSync
+    public class TeatroMinhaEntradaSync : EventSync
     {
-        const string ORGANIZER = "PoaComedyClub";
+        const string EVENTS_QUERY = "?estado=RS&cidade=7994&categoria=4";//cidade: Porto Alegre, categoria: Teatro
 
-		public PoaComedyClubSync(ILoggerFactory loggerFactory) : base(new MinhaEntradaCrawler(ORGANIZER))
+		public TeatroMinhaEntradaSync(ILoggerFactory loggerFactory) : base(new MinhaEntradaCrawler(EVENTS_QUERY))
         {
-            _logger = loggerFactory.CreateLogger<PoaComedyClubSync>();
+            _logger = loggerFactory.CreateLogger<TeatroMinhaEntradaSync>();
 		}
 
-        [Function(nameof(PoaComedyClubSync))]
+        [Function(nameof(TeatroMinhaEntradaSync))]
 		[ServiceBusOutput("%AzureServiceBusEventCreatedQueue%", Connection = "AzureServiceBusConnectionString")]
 		public override async Task<IEnumerable<EventCreated>> RunAsync([TimerTrigger("%CrawlerCron%", RunOnStartup = false)] TimerInfo timer)
         {
 			DateTime startDate = DateTime.Today;
 			DateTime endDate = DateTime.Today.AddDays(7);
 
-			InitLog(startDate, endDate);
+			_boraCrawler.EventsSchedule = $"{_boraCrawler.EventsSchedule}&data-inicio={startDate:yyyy-MM-dd}&data-fim={endDate:yyyy-MM-dd}";
 
-			_boraCrawler.EventsSchedule = $"{_boraCrawler.EventsSchedule}?data-inicio={startDate:yyyy-MM-dd}&data-fim={endDate:yyyy-MM-dd}";
+			InitLog(startDate, endDate);
 
 			var events = await _boraCrawler.CrawlEventsAsync();
 

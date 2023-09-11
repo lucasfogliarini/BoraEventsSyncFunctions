@@ -4,7 +4,7 @@ namespace BoraEventsSyncFunctions.Crawlers
 {
 	public class SymplaCrawler : BoraCrawler
     {
-        const string SYMPLA_DOMAIN = "https://www.sympla.com.br/";
+        const string SYMPLA_DOMAIN = "https://www.sympla.com.br";
 
         /// <summary>
         /// A crawler class for extracting event information from a 'https://www.sympla.com.br/'
@@ -12,7 +12,7 @@ namespace BoraEventsSyncFunctions.Crawlers
         /// <param name="eventsQuery">https://www.sympla.com.br/eventos/{eventsQuery}</param>
         public SymplaCrawler(string eventsQuery)
         {
-            EventsSchedule = $"{SYMPLA_DOMAIN}eventos/{eventsQuery}";
+            EventsSchedule = $"{SYMPLA_DOMAIN}/eventos/{eventsQuery}";
         }
 
         protected override List<CrawledEvent> ExtractEvents(IDocument document)

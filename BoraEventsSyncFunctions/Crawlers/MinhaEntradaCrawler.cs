@@ -8,13 +8,13 @@ namespace BoraEventsSyncFunctions.Crawlers
     {
         const string MINHAENTRADA_DOMAIN = "https://minhaentrada.com.br";
 
-        /// <summary>
-        /// A crawler class for extracting event information from a 'https://minhaentrada.com.br'
-        /// </summary>
-        /// <param name="eventOrganizer">https://minhaentrada.com.br/{eventOrganizer}</param>
-        public MinhaEntradaCrawler(string eventOrganizer)
+		/// <summary>
+		/// A crawler class for extracting event information from a 'https://minhaentrada.com.br'
+		/// </summary>
+		/// <param name="eventsQuery">https://minhaentrada.com.br/agenda-geral{eventsQuery}</param>
+		public MinhaEntradaCrawler(string eventsQuery)
         {
-            EventsSchedule = $"{MINHAENTRADA_DOMAIN}/{eventOrganizer}/agenda-geral";
+            EventsSchedule = $"{MINHAENTRADA_DOMAIN}/agenda-geral{eventsQuery}";
         }
         protected override List<CrawledEvent> ExtractEvents(IDocument document)
         {
