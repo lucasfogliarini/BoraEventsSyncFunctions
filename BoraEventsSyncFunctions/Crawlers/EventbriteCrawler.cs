@@ -4,7 +4,7 @@ namespace BoraEventsSyncFunctions.Crawlers
 {
     public class EventbriteCrawler : BoraCrawler
     {
-        const string EVENTBRITE_DOMAIN = "https://www.eventbrite.com.br/";
+        const string EVENTBRITE_DOMAIN = "https://www.eventbrite.com.br";
 
         /// <summary>
         /// A crawler class for extracting event information from a 'https://www.eventbrite.com.br/'
