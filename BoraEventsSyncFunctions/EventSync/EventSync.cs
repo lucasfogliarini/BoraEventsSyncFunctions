@@ -19,6 +19,11 @@ namespace BoraEventsSyncFunctions.EventSync
 			_logger.LogWarning($"[{GetType().Name}] Criando eventos da semana de '{startDate.ToShortDateString()}' até '{endDate.ToShortDateString()}'. Crawling '{_boraCrawler.EventsSchedule}'");
 		}
 
+		public void LogEvents(IEnumerable<CrawledEvent> crawledEvents)
+		{
+			_logger.LogWarning($"[{GetType().Name}] {crawledEvents.Count()} eventos rastreados.");
+		}
+
 		public abstract Task<IEnumerable<EventCreated>> RunAsync([TimerTrigger("%CrawlerCron%", RunOnStartup = false)] TimerInfo timer);
     }
 }

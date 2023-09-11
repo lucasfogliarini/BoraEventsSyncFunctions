@@ -23,7 +23,9 @@ namespace BoraEventsSyncFunctions.EventSync
 
 			var events = await _boraCrawler.CrawlEventsAsync();
 
-            return events
+			LogEvents(events);
+
+			return events
                 .Where(e => e.DateTime >= startDate && e.DateTime <= endDate)
                 .Select(e => new EventCreated
                 {

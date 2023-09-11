@@ -26,6 +26,8 @@ namespace BoraEventsSyncFunctions.EventSync
 
 			var events = await _boraCrawler.CrawlEventsAsync();
 
+			LogEvents(events);
+
 			return events.Select(e => new EventCreated
 			{
 				Start = e.DateTime,
