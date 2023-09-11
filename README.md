@@ -18,5 +18,3 @@ A função **ValenEventbriteSync** concentra-se na extração de eventos da [Val
 ## GoogleCalendarSync
 
 A função **GoogleCalendarSync** é responsável por sincronizar eventos recebidos de uma fila do Azure Service Bus com o serviço Google Calendar.
-
-Estas funções são altamente configuráveis e podem ser facilmente adaptadas para diferentes sites e categorias de eventos. Elas fornecem uma maneira automatizada de coletar informações sobre eventos e podem ser integradas a outros sistemas ou processos para fins de análise, notificação ou gerenciamento de eventos.
