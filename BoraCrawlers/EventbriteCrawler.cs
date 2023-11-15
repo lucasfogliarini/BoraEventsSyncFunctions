@@ -44,7 +44,7 @@ namespace BoraCrawlers
                     {
                         continue;
                     }
-                    string d = dateParts[2];
+                    string d = dateParts[2].Replace(",", "");
                     string MMMBr = dateParts[1];
                     string HHmm = dateParts[3];
                     eventData.DateTime = ParseDateTime(d, MMMBr, HHmm);

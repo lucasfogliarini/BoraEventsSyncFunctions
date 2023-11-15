@@ -30,9 +30,10 @@ namespace BoraCrawlers
                 var imageUrl = eventNode.QuerySelector("img")?.GetAttribute("src");
                 var eventLink = eventNode.QuerySelector("a.color-font-black")?.GetAttribute("href");
                 eventLink = $"{MINHAENTRADA_DOMAIN}{eventLink}";
-                DateTime.TryParseExact(dateTimeString, "dd/MM/yyyy - HH:mm'h'", CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal, out DateTime dateTime);
+                var dateTime = ParseDateTime(dateTimeString, "dd/MM/yy - HH:mm'h'");
+                dateTime ??= ParseDateTime(dateTimeString, "dd/MM/yyyy - HH:mm'h'");
 
-                var eventData = new CrawledEvent
+				var eventData = new CrawledEvent
                 {
                     Title = title,
                     DateTime = dateTime,
@@ -46,5 +47,11 @@ namespace BoraCrawlers
 
             return eventList;
         }
+
+        private static DateTime? ParseDateTime(string dateTimeString, string dateFormat)
+        {
+			DateTime.TryParseExact(dateTimeString, dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal, out DateTime dateTime);
+            return dateTime;
+		}
     }
 }
