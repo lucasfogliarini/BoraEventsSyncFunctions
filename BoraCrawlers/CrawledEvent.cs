@@ -1,4 +1,4 @@
-﻿namespace BoraEventsSyncFunctions.Crawlers
+﻿namespace BoraCrawlers
 {
     public class CrawledEvent
     {

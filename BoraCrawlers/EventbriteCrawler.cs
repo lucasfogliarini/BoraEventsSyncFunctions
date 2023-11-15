@@ -1,6 +1,6 @@
 ﻿using AngleSharp.Dom;
 
-namespace BoraEventsSyncFunctions.Crawlers
+namespace BoraCrawlers
 {
     public class EventbriteCrawler : BoraCrawler
     {
