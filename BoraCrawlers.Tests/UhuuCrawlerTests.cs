@@ -2,7 +2,7 @@ namespace BoraCrawlers.Tests
 {
 	public class UhuuCrawlerTests
 	{
-		const string EVENTS_QUERY = "v/araujovianna-99";
+		const string EVENTS_QUERY = "v/teatro-do-bourbon-country-72";
 
 		[Fact]
 		public async Task CrawlEventsAsync_Should_Return_Events()

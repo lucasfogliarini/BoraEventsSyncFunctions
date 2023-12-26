@@ -23,9 +23,10 @@ namespace BoraCrawlers
 
             foreach (var eventNode in events)
             {
-				var title = eventNode.QuerySelector(".evento-nome")?.TextContent.Trim();
-				var dd = eventNode.QuerySelector(".minicard-data .data-layer")?.TextContent.Trim();
-				var MMMBr = eventNode.QuerySelector(".minicard-data .data-mes")?.TextContent.Trim();
+				var title = eventNode.QuerySelector(".info-evento .evento-nome")?.TextContent.Trim();
+				var dd = eventNode.QuerySelector(".info-evento .data-layer")?.TextContent.Trim();
+                dd ??= eventNode.QuerySelector(".info-evento .data-inicial")?.TextContent.Trim();
+				var MMMBr = eventNode.QuerySelector(".info-evento .data-mes")?.TextContent.Trim();
 				var location = eventNode.QuerySelector(".info-evento .local-nome")?.TextContent.Trim();
 				var eventLink = eventNode.QuerySelector(".link")?.GetAttribute("href");
                 var imageUrl = eventNode.QuerySelector(".container-img img")?.GetAttribute("data-src");

@@ -20,11 +20,20 @@ namespace BoraEventsSyncFunctions.EventSync
                                             Connection = "AzureServiceBusConnectionString")]
                                             EventCreated eventCreated)
         {
-            _logger.LogWarning($"[{GetType().Name}] Sincronizando evento '{eventCreated.Title}' ({eventCreated.Start}).");
+            string gmail = "lucasfogliarini@gmail.com";
+            await _googleCalendarService.InitializeCalendarServiceAsync(gmail);
+
+			_logger.LogWarning($"[{GetType().Name}] Sincronizando evento '{eventCreated.Title}' ({eventCreated.Start}).");
+            var events = await _googleCalendarService.ListEventsAsync(eventCreated.CalendarId, eventCreated.EventLink);
+            var alreadyCreated = events.Items.Count > 0;
+			if (alreadyCreated)
+            {
+                _logger.LogWarning($"Esse evento não será criado, pois já existe um com o mesmo link no seu calendário. ${eventCreated.EventLink}");
+				return;
+            }
 
             eventCreated.Description += $"\n {eventCreated.EventLink}";
-            string gmail = "lucasfogliarini@gmail.com";
-            await _googleCalendarService.CreateAsync(gmail, eventCreated);
+            await _googleCalendarService.CreateAsync(eventCreated);
         }
 
 	}

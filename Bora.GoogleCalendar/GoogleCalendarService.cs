@@ -18,22 +18,7 @@ namespace Bora.GoogleCalendar
             _googleDataStore = googleDataStore;
 		}
 
-        public async Task CreateAsync(string gmail, IEventInput eventInput)
-        {
-            ValidateEvent(eventInput);
-            await InitializeCalendarServiceAsync(gmail);
-            var @event = ToGoogleEvent(eventInput);
-            var request = _calendarService.Events.Insert(@event, eventInput.CalendarId);
-            request.ConferenceDataVersion = 1;
-            var gEvent = await request.ExecuteAsync();
-        }
-
-		private static void ValidateEvent(IEventInput eventInput)
-        {
-            if (eventInput.Start.HasValue && eventInput.Start.Value < DateTime.Now)
-                throw new ValidationException("O encontro precisa ser maior que agora ...");
-        }
-        private async Task InitializeCalendarServiceAsync(string gmail)
+        public async Task InitializeCalendarServiceAsync(string gmail)
         {
             var userCredential = await _googleDataStore.GetUserCredentialAsync(gmail);
 
@@ -41,6 +26,29 @@ namespace Bora.GoogleCalendar
             {
                 HttpClientInitializer = userCredential,
             });
+        }
+
+        public async Task<Event> CreateAsync(IEventInput eventInput)
+        {
+            ValidateEvent(eventInput);
+            var @event = ToGoogleEvent(eventInput);
+			var request = _calendarService.Events.Insert(@event, eventInput.CalendarId);
+            request.ConferenceDataVersion = 1;
+            var gEvent = await request.ExecuteAsync();
+            return gEvent;
+        }
+        public async Task<Events> ListEventsAsync(string calendarId, string? search = null)
+        {
+			var eventsRequest = _calendarService.Events.List(calendarId);
+			eventsRequest.Q = search;
+			var events = await eventsRequest.ExecuteAsync();
+            return events;
+		}
+
+		private static void ValidateEvent(IEventInput eventInput)
+        {
+            if (eventInput.Start.HasValue && eventInput.Start.Value < DateTime.Now)
+                throw new ValidationException("O encontro precisa ser maior que agora ...");
         }
         private static Event ToGoogleEvent(IEventInput eventInput)
         {
