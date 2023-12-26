@@ -29,7 +29,7 @@ namespace BoraCrawlers
                 var eventPrice = eventElement.QuerySelector(".eds-event-card-content__sub:nth-child(2)")?.TextContent.Trim();
                 var eventLink = eventElement.QuerySelector("a.eds-event-card-content__action-link")?.GetAttribute("href");
 
-                var eventData = new CrawledEvent
+                var crawledEvent = new CrawledEvent
 				{
                     Title = ParseCustomTitle(title),
                     Location = "❤️‍🔥 Valen Bar",
@@ -47,10 +47,10 @@ namespace BoraCrawlers
                     string d = dateParts[2].Replace(",", "");
                     string MMMBr = dateParts[1];
                     string HHmm = dateParts[3];
-                    eventData.DateTime = ParseDateTime(d, MMMBr, HHmm);
+                    crawledEvent.DateTime = ParseDateTime(d, MMMBr, HHmm);
                 }
 
-                eventList.Add(eventData);
+                eventList.Add(crawledEvent);
             }
 
             return eventList;

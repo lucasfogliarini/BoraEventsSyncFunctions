@@ -33,7 +33,7 @@ namespace BoraCrawlers
                 var dateTime = ParseDateTime(dateTimeString, "dd/MM/yy - HH:mm'h'");
                 dateTime ??= ParseDateTime(dateTimeString, "dd/MM/yyyy - HH:mm'h'");
 
-				var eventData = new CrawledEvent
+				var crawledEvent = new CrawledEvent
                 {
                     Title = title,
                     DateTime = dateTime,
@@ -42,7 +42,7 @@ namespace BoraCrawlers
                     EventLink = eventLink
                 };
 
-                eventList.Add(eventData);
+                eventList.Add(crawledEvent);
             }
 
             return eventList;

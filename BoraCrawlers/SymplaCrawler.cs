@@ -28,7 +28,7 @@ namespace BoraCrawlers
                 var location = eventNode.QuerySelector("[class^='EventCardstyle__EventLocation']")?.TextContent;
                 var eventLink = eventNode.GetAttribute("href");
 
-                var eventData = new CrawledEvent
+                var crawledEvent = new CrawledEvent
                 {
                     Title = title,
                     Location = location,
@@ -45,10 +45,10 @@ namespace BoraCrawlers
                     string d = dateParts[1];
                     string MMMBr = dateParts[2];
                     string HHmm = dateParts[4];
-                    eventData.DateTime = ParseDateTime(d, MMMBr, HHmm);
+                    crawledEvent.DateTime = ParseDateTime(d, MMMBr, HHmm);
                 }
 
-                eventList.Add(eventData);
+                eventList.Add(crawledEvent);
             }
 
             return eventList;

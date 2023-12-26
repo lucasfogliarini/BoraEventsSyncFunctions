@@ -29,7 +29,7 @@ namespace BoraCrawlers
 			}
 		}
 
-		protected static DateTime? ParseDateTime(string d, string MMMBr, string HHmm)
+		protected static DateTime? ParseDateTime(string day, string MMMBr, string HHmm = "00:00")
 		{
 			Dictionary<string, string> monthMap = new()
 			{
@@ -48,11 +48,13 @@ namespace BoraCrawlers
 			};
 
 			string MMM = monthMap[MMMBr.ToLower()];
-			string format = "d MMM HH:mm";
-			string formattedDate = $"{d} {MMM} {HHmm}";
+			string format = "dd MMM HH:mm";
+			string formattedDate = $"{day} {MMM} {HHmm}";
 
 			if (DateTime.TryParseExact(formattedDate, format, CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal, out DateTime dateTime))
 			{
+				if (dateTime < DateTime.Now)
+					return dateTime.AddYears(1);
 				return dateTime;
 			}
 

@@ -1,20 +1,20 @@
 namespace BoraCrawlers.Tests
 {
-	public class MinhaEntradaCrawlerTests
+	public class UhuuCrawlerTests
 	{
-		const string EVENTS_QUERY = "?estado=RS&cidade=7994&categoria=4";
+		const string EVENTS_QUERY = "v/araujovianna-99";
 
 		[Fact]
 		public async Task CrawlEventsAsync_Should_Return_Events()
 		{
-			var minhaEntradaCrawler = new MinhaEntradaCrawler(EVENTS_QUERY);
+			var uhuuCrawler = new UhuuCrawler(EVENTS_QUERY);
 
 			DateTime startDate = DateTime.Today;
 
-			var events = await minhaEntradaCrawler.CrawlEventsAsync();
+			var events = await uhuuCrawler.CrawlEventsAsync();
 
 			Assert.NotEmpty(events);
-			var e = events.First();
+			var e = events.First(e => e.DateTime >= startDate);
 
 			Assert.True(e.DateTime >= startDate);
 			Assert.False(string.IsNullOrEmpty(e.EventLink));
