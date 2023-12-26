@@ -28,7 +28,7 @@ namespace BoraEventsSyncFunctions.EventSync
             var alreadyCreated = events.Items.Count > 0;
 			if (alreadyCreated)
             {
-                _logger.LogWarning($"Esse evento não será criado, pois já existe um com o mesmo link no seu calendário. ${eventCreated.EventLink}");
+                _logger.LogWarning($"Esse evento não será criado, pois já existe um evento com o mesmo link no seu calendário. '{eventCreated.EventLink}'");
 				return;
             }
 
