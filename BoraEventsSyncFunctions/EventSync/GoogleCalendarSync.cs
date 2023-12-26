@@ -34,7 +34,7 @@ namespace BoraEventsSyncFunctions.EventSync
 
             eventCreated.Description += $"\n {eventCreated.EventLink}";
             await _googleCalendarService.CreateAsync(eventCreated);
-        }
-
+            _logger.LogInformation($"Evento criado, '{eventCreated.EventLink}'.");
+		}
 	}
 }
