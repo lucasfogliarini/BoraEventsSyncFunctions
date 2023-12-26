@@ -19,5 +19,6 @@ namespace BoraEventsSyncFunctions
 		/// https://calendar.google.com/calendar/u/0/r/settings/calendar/MmM5ZWI0YTFhZDIwODFkOWZiMzJhY2VlYTg5YjA5OWQ1OTAwMzdkYmYxZDM4ZGExYjU1MGQzNGJjYWFlOWRlZEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t
 		/// </summary>
 		public string CalendarId { get; set; } = "2c9eb4a1ad2081d9fb32aceea89b099d590037dbf1d38da1b550d34bcaae9ded@group.calendar.google.com";
+        public bool CreateReminderTask { get; set; }
     }
 }

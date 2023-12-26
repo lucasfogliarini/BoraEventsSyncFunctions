@@ -6,6 +6,7 @@ using Google.Apis.Auth.OAuth2;
 using Google.Apis.Calendar.v3;
 using Microsoft.Extensions.Options;
 using System.ComponentModel.DataAnnotations;
+using Google.Apis.Tasks.v1;
 
 namespace Bora.GoogleCalendar
 {
@@ -26,7 +27,7 @@ namespace Bora.GoogleCalendar
 		{
 			UserCredential credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
 					_googleCalendarConfig.GoogleClientSecrets(),
-					new[] { CalendarService.Scope.CalendarEvents },
+					new[] { CalendarService.Scope.CalendarEvents, TasksService.Scope.Tasks },
 					gmail,
 					CancellationToken.None,
 					this);

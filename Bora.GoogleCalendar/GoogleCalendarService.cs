@@ -1,16 +1,15 @@
 ﻿using Google.Apis.Calendar.v3;
 using Google.Apis.Calendar.v3.Data;
+using Google.Apis.Tasks.v1;
 using Google.Apis.Services;
-using Google.Apis.Util.Store;
 using System.ComponentModel.DataAnnotations;
-using System.Text.RegularExpressions;
-using SendUpdatesEnum = Google.Apis.Calendar.v3.EventsResource.PatchRequest.SendUpdatesEnum;
 
 namespace Bora.GoogleCalendar
 {
 	public class GoogleCalendarService
     {
         CalendarService _calendarService = null;
+        TasksService _taskService = null;
         readonly GoogleDataStore _googleDataStore;
 
         public GoogleCalendarService(GoogleDataStore googleDataStore)
@@ -26,8 +25,12 @@ namespace Bora.GoogleCalendar
             {
                 HttpClientInitializer = userCredential,
             });
-        }
 
+            _taskService = new TasksService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = userCredential
+            });
+        }
         public async Task<Event> CreateAsync(IEventInput eventInput)
         {
             ValidateEvent(eventInput);
@@ -35,6 +38,18 @@ namespace Bora.GoogleCalendar
 			var request = _calendarService.Events.Insert(@event, eventInput.CalendarId);
             request.ConferenceDataVersion = 1;
             var gEvent = await request.ExecuteAsync();
+
+            if (eventInput.CreateReminderTask)
+            {
+                var taskList = "MDExMTAxNTQ4OTU1MzE4NzMxMDI6MDow";//Tarefas
+                var reminderTask = new Google.Apis.Tasks.v1.Data.Task
+                {
+                    Due = DateTime.Now.ToString("O"),                    
+                    Title = $"{eventInput.Title} - {eventInput.Start.Value.ToShortDateString()}"
+				};
+                await _taskService.Tasks.Insert(reminderTask, taskList).ExecuteAsync();
+			}
+
             return gEvent;
         }
         public async Task<Events> ListEventsAsync(string calendarId, string? search = null)

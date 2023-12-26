@@ -8,7 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="Azure.Storage.Blobs" Version="12.19.1" />
-    <PackageReference Include="Google.Apis.Calendar.v3" Version="1.64.0.3171" />
+    <PackageReference Include="Google.Apis.Calendar.v3" Version="1.64.0.3248" />
+    <PackageReference Include="Google.Apis.Tasks.v1" Version="1.64.0.3015" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.0" />
   </ItemGroup>
 

@@ -33,6 +33,7 @@ namespace BoraEventsSyncFunctions.EventSync
             }
 
             eventCreated.Description += $"\n {eventCreated.EventLink}";
+            eventCreated.CreateReminderTask = eventCreated.Start > DateTime.Today.AddDays(10);
             await _googleCalendarService.CreateAsync(eventCreated);
             _logger.LogInformation($"Evento criado, '{eventCreated.EventLink}'.");
 		}

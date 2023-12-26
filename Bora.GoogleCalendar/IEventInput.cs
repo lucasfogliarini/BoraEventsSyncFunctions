@@ -11,6 +11,7 @@
         public bool AddConference { get; set; }
         public GoogleCalendarColor? Color { get; set; }
 		public string CalendarId { get; set; }
+		public bool CreateReminderTask { get; set; }
     }
 
 	public enum GoogleCalendarColor
