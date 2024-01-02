@@ -7,9 +7,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoraEventsSyncFunctions", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bora.GoogleCalendar", "Bora.GoogleCalendar\Bora.GoogleCalendar.csproj", "{FE072BBC-14D1-4FF3-8267-8FF09DCE06F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoraCrawlers", "BoraCrawlers\BoraCrawlers.csproj", "{91611282-B795-4376-A4CD-33DB8101B14A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoraCrawlers", "BoraCrawlers\BoraCrawlers.csproj", "{91611282-B795-4376-A4CD-33DB8101B14A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoraCrawlers.Tests", "BoraCrawlers.Tests\BoraCrawlers.Tests.csproj", "{560B7D28-86EE-410A-8621-F765486A52BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoraCrawlers.Tests", "BoraCrawlers.Tests\BoraCrawlers.Tests.csproj", "{560B7D28-86EE-410A-8621-F765486A52BD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{82AA03A0-CE7B-42A3-BF64-0BE37A8AD821}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\main_fn-bora-events-sync.yml = .github\workflows\main_fn-bora-events-sync.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
