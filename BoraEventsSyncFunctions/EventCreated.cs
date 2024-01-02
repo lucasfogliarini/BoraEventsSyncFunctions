@@ -1,4 +1,6 @@
-﻿namespace BoraEventsSyncFunctions
+﻿using BoraEventsSyncFunctions.BoraHttp;
+
+namespace BoraEventsSyncFunctions
 {
 	public class EventCreated : IEventInput
 	{

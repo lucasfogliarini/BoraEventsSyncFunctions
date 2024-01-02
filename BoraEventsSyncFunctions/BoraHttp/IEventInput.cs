@@ -1,4 +1,4 @@
-﻿namespace BoraEventsSyncFunctions
+﻿namespace BoraEventsSyncFunctions.BoraHttp
 {
     public interface IEventInput
     {

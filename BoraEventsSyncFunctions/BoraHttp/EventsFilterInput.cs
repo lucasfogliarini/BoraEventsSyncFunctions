@@ -1,7 +1,4 @@
-﻿using System.Collections.Specialized;
-using System.Web;
-
-namespace BoraEventsSyncFunctions.BoraHttp
+﻿namespace BoraEventsSyncFunctions.BoraHttp
 {
 	public class EventsFilterInput
     {
@@ -21,29 +18,5 @@ namespace BoraEventsSyncFunctions.BoraHttp
         ///  Optional.
 		/// </summary>
 		public string? Query { get; set; }
-
-		public string ToQueryParamsString()
-		{
-			// Cria um NameValueCollection para armazenar os parâmetros
-			NameValueCollection queryParams = HttpUtility.ParseQueryString(string.Empty);
-
-			// Adiciona as propriedades não nulas ao NameValueCollection
-			if (!string.IsNullOrEmpty(CalendarId))
-				queryParams[nameof(CalendarId)] = CalendarId;
-
-			queryParams[nameof(FavoritesCount)] = FavoritesCount.ToString();
-
-			if (TimeMax.HasValue)
-				queryParams[nameof(TimeMax)] = TimeMax.Value.ToString("yyyy-MM-ddTHH:mm:ss");
-
-			if (TimeMin.HasValue)
-				queryParams[nameof(TimeMin)] = TimeMin.Value.ToString("yyyy-MM-ddTHH:mm:ss");
-
-			if (!string.IsNullOrEmpty(Query))
-				queryParams[nameof(Query)] = Query;
-
-			// Converte o NameValueCollection para uma string de query parameters
-			return queryParams.ToString();
-		}
 	}
 }
