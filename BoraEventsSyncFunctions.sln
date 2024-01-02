@@ -5,8 +5,6 @@ VisualStudioVersion = 17.5.33502.453
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoraEventsSyncFunctions", "BoraEventsSyncFunctions\BoraEventsSyncFunctions.csproj", "{0D3303F3-DD2A-4690-9BC7-F21BEF02F642}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bora.GoogleCalendar", "Bora.GoogleCalendar\Bora.GoogleCalendar.csproj", "{FE072BBC-14D1-4FF3-8267-8FF09DCE06F8}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoraCrawlers", "BoraCrawlers\BoraCrawlers.csproj", "{91611282-B795-4376-A4CD-33DB8101B14A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoraCrawlers.Tests", "BoraCrawlers.Tests\BoraCrawlers.Tests.csproj", "{560B7D28-86EE-410A-8621-F765486A52BD}"
@@ -26,10 +24,6 @@ Global
 		{0D3303F3-DD2A-4690-9BC7-F21BEF02F642}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D3303F3-DD2A-4690-9BC7-F21BEF02F642}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D3303F3-DD2A-4690-9BC7-F21BEF02F642}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FE072BBC-14D1-4FF3-8267-8FF09DCE06F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FE072BBC-14D1-4FF3-8267-8FF09DCE06F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FE072BBC-14D1-4FF3-8267-8FF09DCE06F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FE072BBC-14D1-4FF3-8267-8FF09DCE06F8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{91611282-B795-4376-A4CD-33DB8101B14A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{91611282-B795-4376-A4CD-33DB8101B14A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91611282-B795-4376-A4CD-33DB8101B14A}.Release|Any CPU.ActiveCfg = Release|Any CPU

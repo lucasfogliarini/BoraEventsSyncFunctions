@@ -1,5 +1,4 @@
-using Bora.GoogleCalendar;
-using Microsoft.Extensions.Configuration;
+using BoraEventsSyncFunctions.BoraHttp;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -7,13 +6,7 @@ var host = new HostBuilder()
 	.ConfigureFunctionsWorkerDefaults()
 	.ConfigureServices((appBuilder, services) =>
 	{
-		services.AddTransient<GoogleCalendarService>();
-		services.AddTransient<GoogleDataStore>();
-		services.AddOptions<GoogleCalendarConfig>()
-		   .Configure<IConfiguration>((settings, configuration) =>
-		   {
-			   configuration.GetSection(nameof(GoogleCalendarConfig)).Bind(settings);
-		   });
+		services.AddHttpClient<BoraHttpClient>();
 
 	})
 	.Build();

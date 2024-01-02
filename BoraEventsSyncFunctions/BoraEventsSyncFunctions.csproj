@@ -13,7 +13,6 @@
     <PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="1.16.4" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Bora.GoogleCalendar\Bora.GoogleCalendar.csproj" />
     <ProjectReference Include="..\BoraCrawlers\BoraCrawlers.csproj" />
   </ItemGroup>
   <ItemGroup>

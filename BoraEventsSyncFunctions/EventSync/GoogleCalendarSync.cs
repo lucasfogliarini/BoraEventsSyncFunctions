@@ -1,18 +1,18 @@
-using Bora.GoogleCalendar;
+using BoraEventsSyncFunctions.BoraHttp;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 
 namespace BoraEventsSyncFunctions.EventSync
 {
-    public class GoogleCalendarSync
+	public class GoogleCalendarSync
     {
         readonly ILogger _logger;
-        readonly GoogleCalendarService _googleCalendarService;
+        readonly BoraHttpClient _boraHttpClient;
 
-        public GoogleCalendarSync(ILoggerFactory loggerFactory, GoogleCalendarService googleCalendarService)
+		public GoogleCalendarSync(ILoggerFactory loggerFactory, BoraHttpClient boraHttpClient)
         {
             _logger = loggerFactory.CreateLogger<GoogleCalendarSync>();
-            _googleCalendarService = googleCalendarService;
+            _boraHttpClient = boraHttpClient;
 		}
 
         [Function(nameof(GoogleCalendarSync))]
@@ -20,12 +20,15 @@ namespace BoraEventsSyncFunctions.EventSync
                                             Connection = "AzureServiceBusConnectionString")]
                                             EventCreated eventCreated)
         {
-            string gmail = "lucasfogliarini@gmail.com";
-            await _googleCalendarService.InitializeCalendarServiceAsync(gmail);
-
 			_logger.LogWarning($"[{GetType().Name}] Sincronizando evento '{eventCreated.Title}' ({eventCreated.Start}).");
-            var events = await _googleCalendarService.ListEventsAsync(eventCreated.CalendarId, eventCreated.EventLink);
-            var alreadyCreated = events.Items.Count > 0;
+            var eventsFilter = new EventsFilterInput
+            {
+                CalendarId = eventCreated.CalendarId,
+                Query = eventCreated.EventLink,
+                TimeMax = DateTime.Now.AddYears(1)
+            };
+            var events = await _boraHttpClient.GetEventsAsync(eventCreated.BoraUser, eventsFilter);
+            var alreadyCreated = events.Any();
 			if (alreadyCreated)
             {
                 _logger.LogWarning($"Esse evento não será criado, pois já existe um evento com o mesmo link no seu calendário. '{eventCreated.EventLink}'");
@@ -34,7 +37,7 @@ namespace BoraEventsSyncFunctions.EventSync
 
             eventCreated.Description += $"\n {eventCreated.EventLink}";
             eventCreated.CreateReminderTask = eventCreated.Start > DateTime.Today.AddDays(10);
-            await _googleCalendarService.CreateAsync(eventCreated);
+            await _boraHttpClient.PostEventAsync(eventCreated);
             _logger.LogInformation($"Evento criado, '{eventCreated.EventLink}'.");
 		}
 	}
