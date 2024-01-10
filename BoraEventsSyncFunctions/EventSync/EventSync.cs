@@ -1,27 +1,28 @@
-using BoraCrawlers;
+using BoraEventsSyncFunctions.BoraHttp;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 
 namespace BoraEventsSyncFunctions.EventSync
 {
-	public abstract class EventSync
+	public abstract class EventSync<TEventSync>
 	{
         protected ILogger _logger;
-        protected BoraCrawler _boraCrawler;
 
-		public EventSync(BoraCrawler boraCrawler)
+        public EventSync(ILoggerFactory loggerFactory)
         {
-			_boraCrawler = boraCrawler;
+			_logger = loggerFactory.CreateLogger<TEventSync>();
 		}
 
-		public void InitLog(DateTime startDate, DateTime endDate)
+		public void InitLog(DateTime startDate, DateTime endDate, string eventsScheduleUrl)
 		{
-			_logger.LogWarning($"[{GetType().Name}] Criando eventos da semana de '{startDate.ToShortDateString()}' até '{endDate.ToShortDateString()}'. Crawling '{_boraCrawler.EventsSchedule}'");
+			string message = $"[{GetType().Name}] Criando eventos da semana de '{startDate.ToShortDateString()}' até '{endDate.ToShortDateString()}'. Buscando em '{eventsScheduleUrl}'";
+			_logger.LogWarning(message);
 		}
 
-		public void LogEvents(IEnumerable<CrawledEvent> crawledEvents)
+		public void LogEvents(IEnumerable<IEventInput> events)
 		{
-			_logger.LogWarning($"[{GetType().Name}] {crawledEvents.Count()} eventos rastreados.");
+			string message = $"[{GetType().Name}] {events.Count()} eventos rastreados.";
+			_logger.LogWarning(message);
 		}
 
 		public abstract Task<IEnumerable<EventCreated>> RunAsync([TimerTrigger("%CrawlerCron%", RunOnStartup = false)] TimerInfo timer);

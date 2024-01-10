@@ -1,3 +1,4 @@
+using BoraCrawlers;
 using BoraEventsSyncFunctions.BoraHttp;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -15,6 +16,13 @@ var host = new HostBuilder()
 			httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", boraApiJwt);
 		});
 
+		services.AddHttpClient<EventbriteHttpClient>((provider, httpClient) =>
+		{
+			var eventbriteApiJwt = appBuilder.Configuration.GetSection("EventbriteApiToken").Value;
+			var eventbriteApiDomain = appBuilder.Configuration.GetSection("EventbriteApiDomain").Value;
+			httpClient.BaseAddress = new Uri(eventbriteApiDomain);
+			httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", eventbriteApiJwt);
+		});
 	})
 	.Build();
 

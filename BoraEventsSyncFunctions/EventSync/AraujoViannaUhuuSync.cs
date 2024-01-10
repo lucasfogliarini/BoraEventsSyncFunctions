@@ -4,13 +4,12 @@ using Microsoft.Extensions.Logging;
 
 namespace BoraEventsSyncFunctions.EventSync
 {
-	public class AraujoViannaUhuuSync : EventSync
+	public class AraujoViannaUhuuSync : CrawlerEventSync<AraujoViannaUhuuSync>
     {
-        const string EVENTS_QUERY = "v/araujovianna-99";
+		const string EVENTS_QUERY = "v/araujovianna-99";
 
-        public AraujoViannaUhuuSync(ILoggerFactory loggerFactory) : base(new UhuuCrawler(EVENTS_QUERY))
+        public AraujoViannaUhuuSync(ILoggerFactory loggerFactory) : base(loggerFactory, new UhuuCrawler(EVENTS_QUERY))
         {
-            _logger = loggerFactory.CreateLogger<AraujoViannaUhuuSync>();
         }
 
         [Function(nameof(AraujoViannaUhuuSync))]
@@ -19,22 +18,10 @@ namespace BoraEventsSyncFunctions.EventSync
         {
 			DateTime startDate = DateTime.Today;
 			DateTime endDate = DateTime.Today.AddMonths(6);
-            InitLog(startDate, endDate);
 
-			var events = await _boraCrawler.CrawlEventsAsync();
+			var events = await CrawlEventsAsync(startDate, endDate);
+			return events;
 
-			LogEvents(events);
-
-			return events
-                .Where(e => e.DateTime >= startDate && e.DateTime <= endDate)
-                .Select(e => new EventCreated
-                {
-                    Start = e.DateTime,
-                    Title = e.Title,
-                    EventLink = e.EventLink,
-                    Description = e.Price,
-                    Location = e.Location
-                });
-        }
+		}
     }
 }

@@ -4,13 +4,12 @@ using Microsoft.Extensions.Logging;
 
 namespace BoraEventsSyncFunctions.EventSync
 {
-    public class XadrezSymplaSync : EventSync
+    public class XadrezSymplaSync : CrawlerEventSync<StandUpSymplaSync>
 	{
         const string EVENTS_QUERY = "porto-alegre-rs?s=xadrez";
 
-		public XadrezSymplaSync(ILoggerFactory loggerFactory) : base(new SymplaCrawler(EVENTS_QUERY))
+		public XadrezSymplaSync(ILoggerFactory loggerFactory) : base(loggerFactory, new SymplaCrawler(EVENTS_QUERY))
         {
-            _logger = loggerFactory.CreateLogger<XadrezSymplaSync>();
 		}
 
         [Function(nameof(XadrezSymplaSync))]
@@ -20,21 +19,8 @@ namespace BoraEventsSyncFunctions.EventSync
 			DateTime startDate = DateTime.Today;
 			DateTime endDate = DateTime.Today.AddDays(7);
 
-			InitLog(startDate, endDate);
-
-			var events = await _boraCrawler.CrawlEventsAsync();
-
-			LogEvents(events);
-
-			return events
-				.Where(e => e.DateTime >= startDate && e.DateTime <= endDate)
-				.Select(e => new EventCreated
-				{
-					Start = e.DateTime,
-					Title = e.Title,
-					EventLink = e.EventLink,
-					Location = e.Location
-				});
+			var events = await CrawlEventsAsync(startDate, endDate);
+			return events;
 		}
     }
 }
