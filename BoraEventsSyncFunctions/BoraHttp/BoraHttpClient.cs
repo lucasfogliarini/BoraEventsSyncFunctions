@@ -37,7 +37,11 @@ namespace BoraEventsSyncFunctions.BoraHttp
             var jsonContent = JsonSerializer.Serialize(bodyContent);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await _httpClient.PostAsync(url, content);
-            response.EnsureSuccessStatusCode();
+            var errorDetails = await response.Content.ReadFromJsonAsync<ErrorDetails>();
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception(errorDetails!.detail);
+            }
             return response;
         }
     }

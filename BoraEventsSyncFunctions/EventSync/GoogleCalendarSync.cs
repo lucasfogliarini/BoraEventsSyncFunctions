@@ -20,25 +20,33 @@ namespace BoraEventsSyncFunctions.EventSync
                                             Connection = "AzureServiceBusConnectionString")]
                                             EventCreated eventCreated)
         {
-			_logger.LogWarning($"[{GetType().Name}] Sincronizando evento '{eventCreated.Title}' ({eventCreated.Start}).");
-            var eventsFilter = new EventsFilterInput
+            try
             {
-                CalendarId = eventCreated.CalendarId,
-                Query = eventCreated.EventLink,
-                TimeMax = DateTime.Now.AddYears(1)
-            };
-            var events = await _boraHttpClient.GetEventsAsync(eventCreated.BoraUser, eventsFilter);
-            var alreadyCreated = events.Any();
-			if (alreadyCreated)
-            {
-                _logger.LogWarning($"Esse evento não será criado, pois já existe um evento com o mesmo link no seu calendário. '{eventCreated.EventLink}'");
-				return;
-            }
+				_logger.LogWarning($"[{GetType().Name}] Sincronizando evento '{eventCreated.Title}' ({eventCreated.Start}).");
+				var eventsFilter = new EventsFilterInput
+				{
+					CalendarId = eventCreated.CalendarId,
+					Query = eventCreated.EventLink,
+					TimeMax = DateTime.Now.AddYears(1)
+				};
+				var events = await _boraHttpClient.GetEventsAsync(eventCreated.BoraUser, eventsFilter);
+				var alreadyCreated = events.Any();
+				if (alreadyCreated)
+				{
+					_logger.LogWarning($"Esse evento não será criado, pois já existe um evento com o mesmo link no seu calendário. '{eventCreated.EventLink}'");
+					return;
+				}
 
-            eventCreated.Description += $"\n {eventCreated.EventLink}";
-            eventCreated.CreateReminderTask = eventCreated.Start > DateTime.Today.AddDays(10);
-            await _boraHttpClient.PostEventAsync(eventCreated);
-            _logger.LogInformation($"Evento criado, '{eventCreated.EventLink}'.");
+				eventCreated.Description += $"\n {eventCreated.EventLink}";
+				eventCreated.CreateReminderTask = eventCreated.Start > DateTime.Today.AddDays(10);
+				await _boraHttpClient.PostEventAsync(eventCreated);
+				_logger.LogInformation($"Evento criado, '{eventCreated.EventLink}'.");
+			}
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+				throw;
+            }
 		}
 	}
 }
